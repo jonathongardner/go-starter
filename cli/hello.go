@@ -1,17 +1,19 @@
 package cli
 
 import (
-	"github.com/urfave/cli/v2"
+	"context"
+
 	log "github.com/sirupsen/logrus"
+	"github.com/urfave/cli/v3"
 )
 
-var helloCommand =  &cli.Command{
-	Name:    "hello",
-	Aliases: []string{"b"},
-	Usage:   "Say hello to someone",
+var helloCommand = &cli.Command{
+	Name:      "hello",
+	Aliases:   []string{"b"},
+	Usage:     "Say hello to someone",
 	ArgsUsage: "[who]",
-	Action:  func(c *cli.Context) error {
-		who := c.Args().Get(0)
+	Action: func(ctx context.Context, cmd *cli.Command) error {
+		who := cmd.Args().Get(0)
 		if who == "" {
 			who = "world"
 		}
