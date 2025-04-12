@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/jonathongardner/go-starter/routines"
+	"github.com/jonathongardner/runner"
 
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v3"
@@ -16,7 +16,7 @@ type greeting struct {
 	count int
 }
 
-func (g *greeting) Run(rc *routines.Controller) error {
+func (g *greeting) Run(rc *runner.Controller) error {
 	t := (2 * g.count) + 2
 	time.Sleep(time.Duration(t) * time.Second)
 	log.Infof("Hello %v (%v)", g.name, t)
@@ -25,7 +25,7 @@ func (g *greeting) Run(rc *routines.Controller) error {
 
 type waiting struct{}
 
-func (w *waiting) Run(rc *routines.Controller) error {
+func (w *waiting) Run(rc *runner.Controller) error {
 	count := 0
 	for {
 		select {
@@ -66,7 +66,7 @@ var mgCommand = &cli.Command{
 			return fmt.Errorf("must pass someone to talk to")
 		}
 
-		routineController := routines.NewController()
+		routineController := runner.NewController()
 
 		routineController.GoBackground(&waiting{})
 

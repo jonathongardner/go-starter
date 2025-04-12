@@ -1,3 +1,8 @@
 package app
 
-const Version = "0.0.0-b"
+import (
+	_ "embed"
+)
+
+//go:embed version.txt
+var Version string
